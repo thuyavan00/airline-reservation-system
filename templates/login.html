@@ -2,7 +2,12 @@
     <label for="username">Enter your username:</label>
     <input type="text" id="username" name="username" required />
     <input type="password" id="password" name="password" required />
-    <input type="submit">
+    <button type="submit">
+        Login
+    </button>
+    <button type="submit" formaction="{{ url_for('register') }}">
+       Register
+    </button>
 </form>
 
 {% for mesg in get_flashed_messages() %}
