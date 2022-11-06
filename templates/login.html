@@ -1,15 +1,61 @@
-<form action="{{ url_for('login') }}" method="POST">
-    <label for="username">Enter your username:</label>
-    <input type="text" id="username" name="username" required />
-    <input type="password" id="password" name="password" required />
-    <button type="submit">
-        Login
-    </button>
-    <button type="submit" formaction="{{ url_for('register') }}">
-       Register
-    </button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="login.css"/>
+</head>
+<body>
+  <h1 style="font-family:courier;">TICKET WORLD!!!</h1>
+  <div class="image-content">
+    <img src="logo5.jpg" width="100" height="80">
+    </div>
+     <div class="content">
+      <div class="container">
+        <div class="center">
+          <form>
+            <div class="form-group">
+              <label for="Uname">Email address</label>
+              <input type="email" class="form-control" id="Uname" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="pass">Password</label>
+              <input type="password" class="form-control" id="pass" placeholder="Password">
+            </div>
+            <button class="butn btn btn-danger btn-sm ">Register</button> <button type="submit" class="butn btn btn-danger btn-sm ">Log in</button>
+          </form>
+      </div>
+     </div>
+    </div>
+<!-- Remove the container if you want to extend the Footer to full width. -->
+<div class="container my-5">
 
-{% for mesg in get_flashed_messages() %}
-<h1>{{ mesg }}</h1>
-{% endfor %}
+  <footer class="text-center text-lg-start" style="background-color: #db6930;">
+    <div class="container d-flex justify-content-center py-5">
+      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
+        <i class="fab fa-facebook-f"></i>
+      </button>
+      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
+        <i class="fab fa-youtube"></i>
+      </button>
+      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
+        <i class="fab fa-instagram"></i>
+      </button>
+      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
+        <i class="fab fa-twitter"></i>
+      </button>
+    </div>
+
+    <!-- Copyright -->
+    <div class="text-center text-white p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2020 Copyright:
+      <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  
+</div>
+
+</body>
+</html>

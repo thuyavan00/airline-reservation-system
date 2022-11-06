@@ -1,0 +1,44 @@
+body {
+    background-image: url('plane3.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+  }
+  
+  
+  .butn {
+    display: inline-block;
+  }
+
+
+  .container { 
+    height: 210px;
+    width: 105%;
+    position: relative;
+    border: 3px solid black; 
+  }
+  
+  .center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  .content {
+    max-width: 700px;
+    margin: auto;
+    padding: 200px;
+  }
+  .image-content {
+     position: absolute;
+     top: 0px;
+     right: 0px;
+  }
+  footer {
+    text-align: center;
+    padding:15px;
+    background-color: black;
+    color: white;
+  }
