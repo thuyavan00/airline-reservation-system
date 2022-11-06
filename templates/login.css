@@ -1,44 +1,37 @@
-body {
-    background-image: url('plane3.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% 100%;
-  }
-  
-  
+
   .butn {
     display: inline-block;
   }
 
-
-  .container { 
-    height: 210px;
+  .login .container { 
+    height: 189px;
     width: 105%;
     position: relative;
     border: 3px solid black; 
   }
   
-  .center {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-  }
   .content {
     max-width: 700px;
     margin: auto;
-    padding: 200px;
+    padding: 100px;
   }
-  .image-content {
-     position: absolute;
-     top: 0px;
-     right: 0px;
+
+  .opa{
+    opacity: 0.8;
   }
-  footer {
-    text-align: center;
-    padding:15px;
-    background-color: black;
-    color: white;
+
+  .tbod {
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+  }
+
+  .transparent-input {
+    background-color: rgba(0, 0, 0, 0);
+ }
+  .fbod{
+    border: 3px solid black; 
+  }
+
+  .lbod{
+    border-top: 3px solid black;
   }
