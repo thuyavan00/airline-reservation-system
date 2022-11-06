@@ -16,6 +16,21 @@ todo_ref = db.collection('Logcred')
 def index():
   return render_template('index.html')
 
+@app.route('/register', methods = ['GET', 'POST'])
+def register():
+  # get form entries and add to databse
+  if request.method == 'POST':
+    username = request.form['username']
+    password = request.form['password']
+    docs = db.collection('Logcred').where("Username", "==", username).get()
+    if docs:
+      flash('username already exists')
+    else:
+      db.collection('Logcred').add({'Username':username, 'Password':password})
+      flash('account created')  
+    
+  return render_template('login.html')
+
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
   # create session from login information
