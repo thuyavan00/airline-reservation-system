@@ -55,7 +55,7 @@ def login():
         usdoc =  doc.to_dict()
       if usdoc["Username"] == username and usdoc["Password"] == password:
         session['username'] = usdoc["Username"]
-        return render_template('index.html')
+        return render_template('main.html')
       else:
         msg = "invalid user or password"
         return render_template('login.html', msg = msg)  
