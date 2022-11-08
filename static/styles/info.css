@@ -1,10 +1,10 @@
 
 #container-background {
-    background-image: url('tour.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom right;
     background-position: center; 
+    background-attachment: fixed;
   }
 .opa{
     opacity: 0.8;
@@ -28,9 +28,24 @@
     max-width: 700px;
     margin: auto;
     color: black;
-    padding: 100px;
+    padding: 0px 100px 100px 100px;
     
   }
+  .dataTables_wrapper .dataTables_paginate {
+    float: right;
+  }
+  .dataTables_wrapper .dataTables_filter {
+    float: right;
+  }
 
+  .dataTables_wrapper .dataTables_length {
+    float: left;
+  }
 
+  .dataTables_wrapper .dataTables_info {
+    float: left;
+  }
 
+html, body{
+  overflow-x: hidden;
+}

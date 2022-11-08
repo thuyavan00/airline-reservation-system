@@ -1,6 +1,6 @@
 
 #container-background {
-    background-image: url('ok.jpg');
+    background-image: url('../images/ok.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom right;
