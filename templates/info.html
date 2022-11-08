@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">  
+    <link rel="stylesheet" href="info.css"/>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <div class="opa container-fluid fbod" style="background-color:red;">
+            <nav class="navbar navbar-light" style="background-color:red;">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-light fbod tbod" href="#">ARS</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav tbod">
+                      <li class="nav-item">
+                        <a class="nav-link text-light" href="#">Book</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-light" href="#">My trips</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-light" href="#">Check-in</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-light" href="#">Flight status</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+        </div>
+        <div id="container-background">
+            <br>
+            <br>
+            <br>
+            <table class="table content mt-5 table-bordered table-hover fbod table-striped ms-5">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Airline</th>
+                    <th scope="col">Flight No</th>
+                    <th scope="col">Departure date</th>
+                    <th scope="col">Arrival Date</th>
+                    <th scope="col">Luggage</th>
+                    <th scope="col" colspan="2" class="text-center">Fare</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for file in files %}
+                  <tr>
+                    <th scope="row"></th>
+                    <td>{{file[0]}}</td>
+                    <td>{{file[1]}}{{file[2]}}</td>
+                    <td>{{file[3]}}</td>
+                    <td>{{file[4]}}</td>
+                    <td>20kg</td>
+                    <td colspan="2"><button class="btn btn-success">{{file[5]}}</button></td>
+
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+              
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+        </div>
+
+
+    
+  <footer style="background-color:red;" class="opa lbod fixed-bottom">
+    <div class="container">
+      <div class="row text-white">
+        <div class="col-lg-6 col-md-12 mb-4 ">
+          <h5 class="mt-2 mb-3 tbod">About us</h5>
+          <p>
+            Dubakoor Team
+          </p>
+        </div>
+        <div class="col-lg-3">
+        </div>
+        <div class="mt-2 col-lg-3 col-md-6 mb-4">
+          <h5 class="text-white tbod">Links</h5>
+          <ul class="list-unstyled mb-0 text-white">
+            <li class="mb-1">
+              <p href="#!" >Our team</p>
+            </li>
+            <li class="mb-1">
+              <p href="#!">Contact us</p>
+            </li>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="lbod text-center p-3 text-white" style="background-color: rgba(0, 0, 0, 0.2);">
+      Copyright &copy; 2022 inovangala Frands
+    </div>
+  </footer>
+</body>
+</html>
