@@ -1,0 +1,36 @@
+
+#container-background {
+    background-image: url('tour.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom right;
+    background-position: center; 
+  }
+.opa{
+    opacity: 0.8;
+  }
+
+  .tbod {
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+  }
+
+  .fbod{
+    border: 3px solid black; 
+    
+  }
+
+  .lbod{
+    border-top: 3px solid black;
+  }
+
+  .content {
+    max-width: 700px;
+    margin: auto;
+    color: black;
+    padding: 100px;
+    
+  }
+
+
+

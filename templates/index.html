@@ -3,5 +3,5 @@
     <br><a href = '/logout'>Click here to logout</a>
     
 {% else %}
-    You are not logged in <br><a href = '/login'>Click here to login</a>
+    You are not logged in <br><a href = '{{ url_for('login') }}'>Click here to login</a>
 {% endif %}
