@@ -72,10 +72,6 @@ def logout():
 def land():
   return render_template('main.html')
 
-@app.route('/test', methods = ['GET', 'POST'])
-def test():
-  return request.form["dest"]
-
 
 def get_code(name):
   for i in data:
@@ -110,4 +106,16 @@ def flights():
     files.append([offer.owner.name, offer.owner.iata_code, offer.slices[0].segments[0].operating_carrier_flight_number, offer.slices[0].segments[0].departing_at, offer.slices[0].segments[0].arriving_at, offer.total_amount])
 
   return render_template('info.html', files = files )
+
+@app.route('/booking', methods = ['GET', 'POST'])
+def booking():
+  airline = request.form["airline"]
+  flight = request.form["flight"]
+  depdate = request.form["depdate"]
+  arrdate = request.form["arrdate"]
+  price = request.form["price"]
+  print(airline, flight, depdate, arrdate, price)
+  return render_template('payment.html')
+
+
 

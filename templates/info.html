@@ -45,21 +45,27 @@
                         <th scope="col">Departure date</th>
                         <th scope="col">Arrival Date</th>
                         <th scope="col">Fare</th>
+                    
                         
                       </tr>
                     </thead>
                     <tbody>
+                      
                       {% for file in files %}
+                      <form action="{{ url_for('booking') }}" method="POST">
                       <tr>
-                        <td>{{file[0]}}</td>
-                        <td>{{file[1]}}{{file[2]}}</td>
-                        <td>{{file[3]}}</td>
-                        <td>{{file[4]}}</td>
-                        <td><button class="btn btn-success">{{file[5]}}</button></td>
-    
+                        <td><input type='hidden' name="airline" value= "{{file[0]}} ">{{file[0]}}</td>
+                        <td><input type='hidden' name="flight" value= "{{file[1]}}{{file[2]}} ">{{file[1]}}{{file[2]}}</td>
+                        <td><input type='hidden' name="depdate" value= "{{file[3]}} ">{{file[3]}}</td>
+                        <td><input type='hidden' name="arrdate" value= "{{file[4]}} ">{{file[4]}}</td>
+                        <td><input type='hidden' name="price" value= "{{file[5]}}">{{file[5]}}</td>
+                        <td><button class="btn" type="submit">book</button>
+                      
                       </tr>
+                    </form>
                       {% endfor %}
-    
+                    
+                    
                     </tbody>
      
                   </table>

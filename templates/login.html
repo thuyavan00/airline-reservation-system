@@ -25,9 +25,7 @@
             </div>
             <button type="submit" class="mt-1 mb-1 butn btn btn-danger btn-sm fbod float-end" >Log in</button> <button type ="submit" class="mb-1 mt-1 butn btn btn-danger btn-sm fbod" formaction="{{ url_for('register') }}">Register</button> 
           </form>
-          {% for mesg in get_flashed_messages() %}
-            <h1>{{ mesg }}</h1>
-            {% endfor %}
+          
       </div>
      </div>
     </div>
