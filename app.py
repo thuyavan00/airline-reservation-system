@@ -114,7 +114,8 @@ def booking():
   depdate = request.form["depdate"]
   arrdate = request.form["arrdate"]
   price = request.form["price"]
-  print(airline, flight, depdate, arrdate, price)
+  db.collection('history').add({'Username':session['username'], 'Airline':airline, 'Flight No': flight, 'Departure Date': depdate, 'Arrival Date': arrdate, 'Price': price})
+  
   return render_template('payment.html')
 
 
