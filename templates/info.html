@@ -45,7 +45,7 @@
                         <th scope="col">Departure date</th>
                         <th scope="col">Arrival Date</th>
                         <th scope="col">Fare</th>
-
+                        <!--<th scope=""col>but</th>-->
                     
                         
                       </tr>
@@ -59,8 +59,8 @@
                         <td><input type='hidden' name="flight" value= "{{file[1]}}{{file[2]}} ">{{file[1]}}{{file[2]}}</td>
                         <td><input type='hidden' name="depdate" value= "{{file[3]}} ">{{file[3]}}</td>
                         <td><input type='hidden' name="arrdate" value= "{{file[4]}} ">{{file[4]}}</td>
-                        <td><input type='button' name="price" value= "{{file[5]}}"></td>
-                        <!--<td><button class="btn" type="submit">book</button>-->
+                        <td><input type='hidden' name="price" value= "{{file[5]}}">{{file[5]}}</td>
+                        <td><button class="btn" type="submit">book</button></td>
                       
                       </tr>
                     </form>
