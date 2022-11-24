@@ -41,6 +41,13 @@ def register():
   return render_template('login.html')
 
 @app.route('/', methods = ['GET', 'POST'])
+def index():
+  if session['username'] in session:
+    return render_template('main.html')
+  else:
+    return render_template('login.html')
+
+@app.route('/login', methods = ['GET', 'POST'])
 def login():
   # create session from login information
   if request.method == 'POST':
@@ -68,6 +75,7 @@ def logout():
   # remove the username from the session if it is there
   session.pop('username', None)
   return render_template('index.html')
+
 @app.route('/land', methods = ['GET', 'POST'])
 def land():
   return render_template('main.html')
@@ -109,14 +117,39 @@ def flights():
 
 @app.route('/booking', methods = ['GET', 'POST'])
 def booking():
-  airline = request.form["airline"]
-  flight = request.form["flight"]
-  depdate = request.form["depdate"]
-  arrdate = request.form["arrdate"]
-  price = request.form["price"]
+  airline = request.form["airlinei"]
+  flight = request.form["flighti"]
+  depdate = request.form["depdatei"]
+  arrdate = request.form["arrdatei"]
+  price = request.form["pricei"]
   db.collection('history').add({'Username':session['username'], 'Airline':airline, 'Flight No': flight, 'Departure Date': depdate, 'Arrival Date': arrdate, 'Price': price})
   
   return render_template('payment.html')
+
+@app.route('/payment', methods = ['GET', 'POST'])
+def payment():
+  return render_template('payment.html')
+
+@app.route('/history', methods = ['GET', 'POST'])
+def history():
+  username = session['username']
+  docs = db.collection('history').where("Username", "==", username).get()
+  files = []
+  for doc in docs:
+    usdoc =  doc.to_dict()
+    files.append([usdoc["Airline"], usdoc["Flight No"], usdoc["Departure Date"], usdoc["Arrival Date"]])
+  return render_template('history.html', files = files)
+
+@app.route('/cancel', methods = ['GET', 'POST'])
+def cancel():
+  todo_id = request.form["flightid"]
+  try:
+    db.collection('history').document(todo_id).delete()
+    return render_template('main.html')
+    
+  except Exception as e:
+    return f"An Error Occured: {e}"
+  
 
 
 

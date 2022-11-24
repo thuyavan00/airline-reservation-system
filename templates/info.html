@@ -45,7 +45,7 @@
                         <th scope="col">Departure date</th>
                         <th scope="col">Arrival Date</th>
                         <th scope="col">Fare</th>
-                        <!--<th scope=""col>but</th>-->
+                        <th scope=""col>but</th>
                     
                         
                       </tr>
@@ -53,17 +53,17 @@
                     <tbody>
                       
                       {% for file in files %}
-                      <form action="{{ url_for('booking') }}" method="POST">
-                      <tr>
-                        <td><input type='hidden' name="airline" value= "{{file[0]}} ">{{file[0]}}</td>
-                        <td><input type='hidden' name="flight" value= "{{file[1]}}{{file[2]}} ">{{file[1]}}{{file[2]}}</td>
-                        <td><input type='hidden' name="depdate" value= "{{file[3]}} ">{{file[3]}}</td>
-                        <td><input type='hidden' name="arrdate" value= "{{file[4]}} ">{{file[4]}}</td>
-                        <td><input type='hidden' name="price" value= "{{file[5]}}">{{file[5]}}</td>
-                        <td><button class="btn" type="submit">book</button></td>
+            
+                      <tr id="{{file[1]}}{{file[2]}}">
+                        <td class="row-data">{{file[0]}}</td>
+                        <td class="row-data">{{file[1]}}{{file[2]}}</td>
+                        <td class="row-data">{{file[3]}}</td>
+                        <td class="row-data">{{file[4]}}</td>
+                        <td class="row-data">{{file[5]}}</td>
+                        <td class="row-data"><input type="button" value="submit" onclick="show()" /></td>
                       
                       </tr>
-                    </form>
+                
                       {% endfor %}
                     
                     
@@ -83,6 +83,20 @@
           $(document).ready(function () {
           $('#example').DataTable();
       });
+
+      function show() {
+                var rowId = event.target.parentNode.parentNode.id;
+                var data = document.getElementById(rowId).querySelectorAll(".row-data"); 
+                var airline = data[0].innerHTML;
+                var flight = data[1].innerHTML;
+                var depdate = data[2].innerHTML;
+                var arrdate= data[3].innerHTML;
+                var price= data[4].innerHTML;
+                $.post( "/booking", {
+     airlinei: airline, flighti: flight, depdatei: depdate, arrdatei: arrdate, pricei: price
+});
+        window.location.href = '{{ url_for('payment') }}';
+            }
         </script>
 </body>
 </html>

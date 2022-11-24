@@ -1,6 +1,99 @@
-{% for file in files %}
-{{file[0]}}
-{{file[1]}}
-{{file[2]}}
-{{file[3]}}
-{% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet" >
+    <link rel="stylesheet" href="static\styles\info.css"/>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <div class="opa container-fluid fbod" style="background-color:red;">
+            <nav class="navbar navbar-light" style="background-color:red;">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-light fbod tbod" href="#">ARS</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav tbod">
+                      <li class="nav-item">
+                        <a class="nav-link text-light" href="#">Book</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-light" href="#">My trips</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-light" href="#">Check-in</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-light" href="#">Flight status</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+        </div>
+        <div id="container-background" class="pb-5">
+            <br>
+            <br>
+            <br>
+            <table id="example" class="table content table-fixed table-bordered table-hover table-striped pb-3">
+                    <thead>
+                      <tr>
+                        <th scope="col">Airline</th>
+                        <th scope="col">Flight No</th>
+                        <th scope="col">Departure date</th>
+                        <th scope="col">Arrival Date</th>
+                        <th scope="col">Fare</th>
+                        <!--<th scope=""col>but</th>-->
+                    
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                      {% for file in files %}
+                      
+                      <tr id="{{file[1]}}">
+                        <td class="row-data">{{file[0]}}</td>
+                        <td class="row-data">{{file[1]}}</td>
+                        <td class="row-data">{{file[2]}}</td>
+                        <td class="row-data">{{file[3]}}</td>
+                        <td class="row-data"><input type="button" value="submit" onclick="show()" /></td>
+                    </tr>
+                    
+                      {% endfor %}
+                    
+                    
+                    </tbody>
+     
+                  </table>
+              </div>
+        </div>
+
+
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+        <script>
+          $(document).ready(function () {
+          $('#example').DataTable();
+      });
+
+      function show() {
+                var rowId = event.target.parentNode.parentNode.id;
+                var data = document.getElementById(rowId).querySelectorAll(".row-data"); 
+                var airline = data[0].innerHTML;
+                var flight = data[1].innerHTML;
+                var depdate = data[2].innerHTML;
+                var arrdate= data[3].innerHTML;
+                $.post( "/cancel", {
+     flightid: flight 
+});
+                window.location.href = '{{ url_for('land') }}';
+            }
+        </script>
+</body>
+</html>
