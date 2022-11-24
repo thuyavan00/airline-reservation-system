@@ -40,14 +40,9 @@ def register():
     
   return render_template('login.html')
 
-@app.route('/', methods = ['GET', 'POST'])
-def index():
-  if session['username'] in session:
-    return render_template('main.html')
-  else:
-    return render_template('login.html')
 
-@app.route('/login', methods = ['GET', 'POST'])
+
+@app.route('/', methods = ['GET', 'POST'])
 def login():
   # create session from login information
   if request.method == 'POST':
@@ -146,7 +141,6 @@ def cancel():
   try:
     db.collection('history').document(todo_id).delete()
     return render_template('main.html')
-    
   except Exception as e:
     return f"An Error Occured: {e}"
   
