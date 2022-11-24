@@ -1,21 +1,36 @@
 from flask import Flask, render_template, Response, request,  session, flash, redirect, url_for, abort, send_file, send_from_directory, jsonify
-from flask_session import Session
 import requests, json
 from firebase_admin import credentials, firestore, initialize_app
 from duffel_api import Duffel
+from flask_mail import Mail, Message
+from flask_session import Session
+
+app = Flask(__name__)
+app.secret_key = 'BAD_SECRET_KEY_SDA_PROJECT'
+
+#Session
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
+#email
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'g.ajaygg@gmail.com'
+app.config['MAIL_PASSWORD'] = 'oiocqtghvwjkiprf'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
+
+#duffel api
 access_token = 'duffel_test_kJLcDXpH11bKR78Y5Kxu7MFMck1D1Xlx0cHWwAgxmb8'
 client = Duffel(access_token = access_token)
 from datetime import datetime
 
-app = Flask(__name__)
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
-app.secret_key = 'BAD_SECRET_KEY'
 
+#fliapi
 iata_code = [{'YYZ':'Toronto Pearson International Airport'}, {'YYT':'St. John\'s International Airport'}, {'YYC':'Calgary International Airport'}, {'YWG':'Winnipeg International Airport'}, {'YVR':'Vancouver International Airport'}, {'YUL':'Montréal Trudeau International Airport'}, {'YQX':'Gander International Airport'}, {'YQM':'Greater Moncton Roméo LeBlanc International Airport'}, {'YQB':'Québec/Jean Lesage International Airport'}, {'YOW':'Ottawa Macdonald Cartier International Airport'}, 	{'YHZ':'Halifax Stanfield International Airport'}, {'YFC':'Fredericton International Airport'}, {'YEG':'Edmonton International Airport'}]
 fliapi = "https://airlabs.co/api/v9/cities?name=Singapore&api_key=961e45ec-e4c1-4ce8-99ef-c9411dde97e2"
-
 data = requests.get(fliapi).json()
 data = data['response']
 
@@ -44,9 +59,15 @@ def register():
     
   return render_template('login.html')
 
-
-
 @app.route('/', methods = ['GET', 'POST'])
+def index():
+  session['username'] = 0
+  if session['username'] in session and session['username']!=0:
+    return render_template('main.html')
+  else:
+    return render_template('login.html')
+
+@app.route('/login', methods = ['GET', 'POST'])
 def login():
   # create session from login information
   if request.method == 'POST':
@@ -121,15 +142,34 @@ def booking():
   depdate = request.form["depdatei"]
   arrdate = request.form["arrdatei"]
   price = request.form["pricei"]
-  session['egg'] = airline
-  print(session['egg'])
+  session['airline'] = airline
+  session['flight'] = flight
+  session['depart'] = depdate
+  session['arrdate'] = arrdate
+  session['price'] = price
   db.collection('history').add({'Username':session['username'], 'Airline':airline, 'Flight No': flight, 'Departure Date': depdate, 'Arrival Date': arrdate, 'Price': price})
-  
+
+
   return render_template('payment.html')
 
 @app.route('/payment', methods = ['GET', 'POST'])
 def payment():
   return render_template('payment.html')
+
+@app.route('/emailing', methods = ['GET', 'POST'])
+def emailing():
+  email = request.form["email1"]
+  msg = Message('ARS-Flight Ticket Confirmation', sender = 'ajay.21cs@licet.ac.in', recipients = [email])
+  msg.body = "Your Flight Ticket has been confirmed\n"+"airlines:"+session['airline']+"\t"+"flight no:"+session['flight']+"\t"+"departure:"+session['depart']+"\t"+"Arrival:"+session['arrdate']+"\t"+"Price:"+session['price']
+  mail.send(msg)
+  session.pop('airline', None)
+  session.pop('flight', None)
+  session.pop('depart', None)
+  session.pop('arrdate', None)
+  session.pop('price', None)
+  return render_template('history.html')
+
+
 
 @app.route('/history', methods = ['GET', 'POST'])
 def history():
@@ -147,14 +187,9 @@ def cancel():
   try:
     db.collection('history').document(todo_id).delete()
     return render_template('main.html')
+    
   except Exception as e:
     return f"An Error Occured: {e}"
-
-@app.route('/test', methods = ['GET', 'POST'])
-def test():
-  var = session['egg']
-  print(var)
-  return render_template('main.html')
   
 
 
