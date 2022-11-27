@@ -81,7 +81,7 @@
                 var data = document.getElementById('ema').value;
                 $.post( "/emailing", {email1: data});
 
-window.location.href = '{{ url_for('history') }}';
+window.location.href = '/history';
    
             }
         </script>

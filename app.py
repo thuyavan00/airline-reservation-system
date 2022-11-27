@@ -41,7 +41,7 @@ default_app = initialize_app(cred)
 db = firestore.client()
 todo_ref = db.collection('Logcred')
 
-
+# Register new account
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
   # get form entries and add to databse
@@ -59,6 +59,7 @@ def register():
     
   return render_template('login.html')
 
+# Index page
 @app.route('/', methods = ['GET', 'POST'])
 def index():
   session['username'] = 0
@@ -67,6 +68,7 @@ def index():
   else:
     return render_template('login.html')
 
+# Login 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
   # create session from login information
@@ -89,12 +91,12 @@ def login():
     
   return render_template('login.html')
 
-
+# Logout
 @app.route('/logout')
 def logout():
   # remove the username from the session if it is there
   session.pop('username', None)
-  return render_template('index.html')
+  return render_template('login.html')
 
 @app.route('/land', methods = ['GET', 'POST'])
 def land():
@@ -102,17 +104,20 @@ def land():
 
 
 def get_code(name):
+  msg = "not name"
   for i in data:
     if i['name'] == name:
       return i['city_code']
+  return msg
 
 @app.route('/flights', methods = ['GET', 'POST'])
 def flights():
-  
+  msg = "Enter correct city name"
   destination = get_code(request.form["dest"])
   origin = get_code(request.form["ori"])
   departure_date = request.form["date"]
-
+  if destination=="not name" or origin == "not name":
+    return render_template("main.html", msg = msg)
   slices = [
         {
             "origin": origin,
@@ -170,7 +175,6 @@ def emailing():
   return render_template('history.html')
 
 
-
 @app.route('/history', methods = ['GET', 'POST'])
 def history():
   username = session['username']
@@ -183,9 +187,15 @@ def history():
 
 @app.route('/cancel', methods = ['GET', 'POST'])
 def cancel():
-  todo_id = request.form["flightid"]
+  airline = request.form["airlineid"]
+  flight = request.form["flightid"]
+  print(airline, flight)
   try:
-    db.collection('history').document(todo_id).delete()
+    docs = db.collection('history').where("Airline", "==", airline).get() # Get all documents with age >=50
+    for doc in docs:
+      key = doc.id
+      db.collection('history').document(key).delete()
+    #db.collection('history').document(todo_id).delete()
     return render_template('main.html')
     
   except Exception as e:

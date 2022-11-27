@@ -17,16 +17,13 @@
                   <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav tbod">
                       <li class="nav-item">
-                        <a class="nav-link text-light" href="#">Book</a>
+                        <a class="nav-link text-light" href="{{ url_for('land') }}">Book</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link text-light" href="#">My trips</a>
+                        <a class="nav-link text-light" href="{{ url_for('history') }}">My trips</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link text-light" href="#">Check-in</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link text-light" href="#">Flight status</a>
+                        <a class="nav-link text-light" href="{{ url_for('logout') }}">Logout</a>
                       </li>
                     </ul>
                   </div>
@@ -44,7 +41,7 @@
                         <th scope="col">Flight No</th>
                         <th scope="col">Departure date</th>
                         <th scope="col">Arrival Date</th>
-                        <th scope="col">Fare</th>
+                        <th scope="col"></th>
                         <!--<th scope=""col>but</th>-->
                     
                         
@@ -59,7 +56,7 @@
                         <td class="row-data">{{file[1]}}</td>
                         <td class="row-data">{{file[2]}}</td>
                         <td class="row-data">{{file[3]}}</td>
-                        <td class="row-data"><input type="button" value="submit" onclick="show()" /></td>
+                        <td class="row-data"><input type="button" value="cancel" onclick="show()" /></td>
                     </tr>
                     
                       {% endfor %}
@@ -87,12 +84,10 @@
                 var data = document.getElementById(rowId).querySelectorAll(".row-data"); 
                 var airline = data[0].innerHTML;
                 var flight = data[1].innerHTML;
-                var depdate = data[2].innerHTML;
-                var arrdate= data[3].innerHTML;
                 $.post( "/cancel", {
-     flightid: flight 
+     flightid: flight, airlineid: airline
 });
-                window.location.href = '{{ url_for('land') }}';
+                window.location.href = "/land";
             }
         </script>
 </body>
