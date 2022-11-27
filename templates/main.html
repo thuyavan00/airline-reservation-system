@@ -23,16 +23,13 @@
                   <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav tbod">
                       <li class="nav-item">
-                        <a class="nav-link text-light" href="#">Book</a>
+                        <a class="nav-link text-light" href="{{ url_for('land') }}">Book</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link text-light" href="#">My trips</a>
+                        <a class="nav-link text-light" href="{{ url_for('history') }}">My trips</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link text-light" href="#">Check-in</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link text-light" href="#">Flight status</a>
+                        <a class="nav-link text-light" href="{{ url_for('logout') }}">Logout</a>
                       </li>
                     </ul>
                   </div>
@@ -132,5 +129,13 @@
       Copyright &copy; 2022 inovangala Frands
     </div>
   </footer>
+ 
+  {% if msg %}
+  <script>
+    var messages = "{{ msg }}";
+    alert(messages);
+  </script>
+{% endif %}
+  
 </body>
 </html>
