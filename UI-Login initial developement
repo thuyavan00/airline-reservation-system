@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+body {
+  background-image: url('plane3.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+input[type=text], input[type=password] {
+  width: 60%;
+  padding: 5px 5px;
+  margin: 8px 0;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #ffffff;
+  color: black;
+  
+  padding: 5px 10px;
+  margin-left: 140px;
+  margin-right: 70px;
+  cursor: pointer;
+  
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.container { 
+  height: 160px;
+  width: 105%;
+  position: relative;
+  border: 3px solid black; 
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.content {
+  max-width: 700px;
+  margin: auto;
+  padding: 200px;
+}
+.image-content {
+   position: absolute;
+   top: 0px;
+   right: 0px;
+}
+footer {
+  text-align: center;
+  padding:15px;
+  background-color: black;
+  color: white;
+}
+</style>
+</head>
+<body>
+<h1 style="font-family:courier;">TICKET WORLD!!!</h1>
+<div class="image-content">
+<img src="logo5.jpg" width="100" height="80">
+</div>
+ <div class="content">
+  <div class="container">
+    <div class="center">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Username" name="uname" required><br></br>
+    <label for="password"><b>Password</b></label>
+    <input type="text" placeholder="Password" name="password" required>
+    <button type="submit">Log in</button>
+  </div>
+ </div>
+</div>
+
+<footer>
+  <button type="submit">About Us</button>
+  <button type="submit">Contact Us</button>
+
+</footer>
+
+</body>
+</html>
