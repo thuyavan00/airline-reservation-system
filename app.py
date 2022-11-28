@@ -113,9 +113,19 @@ def get_code(name):
 @app.route('/flights', methods = ['GET', 'POST'])
 def flights():
   msg = "Enter correct city name"
-  destination = get_code(request.form["dest"])
-  origin = get_code(request.form["ori"])
+  dname = request.form["dest"]
+  oname = request.form["ori"]
+  destination = get_code(dname)
+  origin = get_code(oname)
   departure_date = request.form["date"]
+
+  ddocs = db.collection('City').where("IATA", "==",destination).get()
+  if len(ddocs) == 0:
+    db.collection('City').add({'IATA': destination, 'cityname':dname })
+  odocs = db.collection('City').where("IATA", "==",origin).get()
+  if len(odocs) == 0:
+    db.collection('City').add({'IATA': origin, 'cityname':oname })
+
   if destination=="not name" or origin == "not name":
     return render_template("main.html", msg = msg)
   slices = [
@@ -152,14 +162,36 @@ def booking():
   session['depart'] = depdate
   session['arrdate'] = arrdate
   session['price'] = price
-  db.collection('history').add({'Username':session['username'], 'Airline':airline, 'Flight No': flight, 'Departure Date': depdate, 'Arrival Date': arrdate, 'Price': price})
+  return render_template('payment.html')
 
-
+@app.route('/paymentroute', methods = ['GET', 'POST'])
+def paymentroute():
   return render_template('payment.html')
 
 @app.route('/payment', methods = ['GET', 'POST'])
 def payment():
-  return render_template('payment.html')
+  uname = request.form["firstname"]
+  email = request.form["email"]
+  address = request.form["address"]
+  city = request.form["city"]
+  province = request.form["pro"]
+  zip = request.form["zcode"]
+
+  cname = request.form["cardname"]
+  cnum = request.form["cardnumber"]
+  emonth = request.form["expmonth"]
+  eyear = request.form["expyear"]
+  cvv = request.form["cvv"]
+
+  pdata = {'Namecredit':cname, 'Cardno':cnum, 'Expmonth': emonth, 'Expyear': eyear, 'CVV': cvv} 
+  pay = db.collection('Payment').add(pdata)
+  pid = pay[1].id
+
+  cdata = {'Address':address, 'City':city, 'Email':email, 'Name':uname, 'Payment id':pid, 'Province': province, 'Zip':zip}
+  db.collection('Contact info').add(cdata)
+
+  db.collection('History').add({'Username':session['username'], 'Airline':session['airline'], 'Flight No': session['flight'], 'Departure Date': session['depart'], 'Arrival Date': session['arrdate'], 'Price': session['price'], 'Payment id': pid})
+  return render_template('main.html')
 
 @app.route('/emailing', methods = ['GET', 'POST'])
 def emailing():
@@ -178,24 +210,19 @@ def emailing():
 @app.route('/history', methods = ['GET', 'POST'])
 def history():
   username = session['username']
-  docs = db.collection('history').where("Username", "==", username).get()
+  docs = db.collection('History').where("Username", "==", username).get()
   files = []
   for doc in docs:
+    key = doc.id
     usdoc =  doc.to_dict()
-    files.append([usdoc["Airline"], usdoc["Flight No"], usdoc["Departure Date"], usdoc["Arrival Date"]])
+    files.append([key, usdoc["Airline"], usdoc["Flight No"], usdoc["Departure Date"], usdoc["Arrival Date"]])
   return render_template('history.html', files = files)
 
 @app.route('/cancel', methods = ['GET', 'POST'])
 def cancel():
-  airline = request.form["airlineid"]
-  flight = request.form["flightid"]
-  print(airline, flight)
+  bid = request.form["bookingid"]
   try:
-    docs = db.collection('history').where("Airline", "==", airline).get() # Get all documents with age >=50
-    for doc in docs:
-      key = doc.id
-      db.collection('history').document(key).delete()
-    #db.collection('history').document(todo_id).delete()
+    db.collection('history').document(bid).delete()
     return render_template('main.html')
     
   except Exception as e:

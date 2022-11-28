@@ -52,10 +52,11 @@
                       {% for file in files %}
                       
                       <tr id="{{file[1]}}">
-                        <td class="row-data">{{file[0]}}</td>
+                        <td class="row-data" style="display:none;">{{file[0]}}</td>
                         <td class="row-data">{{file[1]}}</td>
                         <td class="row-data">{{file[2]}}</td>
                         <td class="row-data">{{file[3]}}</td>
+                        <td class="row-data">{{file[4]}}</td>
                         <td class="row-data"><input type="button" value="cancel" onclick="show()" /></td>
                     </tr>
                     
@@ -82,10 +83,9 @@
       function show() {
                 var rowId = event.target.parentNode.parentNode.id;
                 var data = document.getElementById(rowId).querySelectorAll(".row-data"); 
-                var airline = data[0].innerHTML;
-                var flight = data[1].innerHTML;
+                var bid = data[0].innerHTML;
                 $.post( "/cancel", {
-     flightid: flight, airlineid: airline
+     bookingid: bid
 });
                 window.location.href = "/land";
             }
