@@ -222,7 +222,7 @@ def history():
 def cancel():
   bid = request.form["bookingid"]
   try:
-    db.collection('history').document(bid).delete()
+    db.collection('History').document(bid).delete()
     return render_template('main.html')
     
   except Exception as e:
