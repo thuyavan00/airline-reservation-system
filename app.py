@@ -1,9 +1,11 @@
-from flask import Flask, render_template, Response, request,  session, flash, redirect, url_for, abort, send_file, send_from_directory, jsonify
+from flask import Flask, render_template, Response, request,  session
 import requests, json
+from datetime import datetime
 from firebase_admin import credentials, firestore, initialize_app
 from duffel_api import Duffel
 from flask_mail import Mail, Message
 from flask_session import Session
+import requests
 
 app = Flask(__name__)
 app.secret_key = 'BAD_SECRET_KEY_SDA_PROJECT'
@@ -25,21 +27,19 @@ mail = Mail(app)
 #duffel api
 access_token = 'duffel_test_kJLcDXpH11bKR78Y5Kxu7MFMck1D1Xlx0cHWwAgxmb8'
 client = Duffel(access_token = access_token)
-from datetime import datetime
 
 
 #fliapi
-iata_code = [{'YYZ':'Toronto Pearson International Airport'}, {'YYT':'St. John\'s International Airport'}, {'YYC':'Calgary International Airport'}, {'YWG':'Winnipeg International Airport'}, {'YVR':'Vancouver International Airport'}, {'YUL':'Montréal Trudeau International Airport'}, {'YQX':'Gander International Airport'}, {'YQM':'Greater Moncton Roméo LeBlanc International Airport'}, {'YQB':'Québec/Jean Lesage International Airport'}, {'YOW':'Ottawa Macdonald Cartier International Airport'}, 	{'YHZ':'Halifax Stanfield International Airport'}, {'YFC':'Fredericton International Airport'}, {'YEG':'Edmonton International Airport'}]
 fliapi = "https://airlabs.co/api/v9/cities?name=Singapore&api_key=961e45ec-e4c1-4ce8-99ef-c9411dde97e2"
 data = requests.get(fliapi).json()
 data = data['response']
-
-
 # Initialize Firestore DB
 cred = credentials.Certificate('key.json')
 default_app = initialize_app(cred)
 db = firestore.client()
 todo_ref = db.collection('Logcred')
+
+
 
 # Register new account
 @app.route('/register', methods = ['GET', 'POST'])
@@ -227,7 +227,7 @@ def cancel():
     
   except Exception as e:
     return f"An Error Occured: {e}"
-  
+
 
 
 
