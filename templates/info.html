@@ -10,7 +10,7 @@
     <div class="opa container-fluid fbod" style="background-color:red;">
             <nav class="navbar navbar-light" style="background-color:red;">
                 <div class="container-fluid">
-                    <a class="navbar-brand text-light fbod tbod" href="#">ARS</a>
+                    <a class="navbar-brand text-light fbod tbod" href="{{ url_for('land') }}">ARS</a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
@@ -34,7 +34,7 @@
             <br>
             <br>
             <br>
-            <table id="example" class="table content table-fixed table-bordered table-hover table-striped pb-3">
+            <table id="example" class="table content table-fixed table-bordered table-hover pb-3">
                     <thead>
                       <tr>
                         <th scope="col">Airline</th>
@@ -42,7 +42,7 @@
                         <th scope="col">Departure date</th>
                         <th scope="col">Arrival Date</th>
                         <th scope="col">Fare</th>
-                        <th scope=""col></th>
+                        <th scope="" style="background-color: white;"></th>
                     
                         
                       </tr>
@@ -56,8 +56,8 @@
                         <td class="row-data">{{file[1]}}{{file[2]}}</td>
                         <td class="row-data">{{file[3]}}</td>
                         <td class="row-data">{{file[4]}}</td>
-                        <td class="row-data">{{file[5]}}</td>
-                        <td class="row-data"><input type="button" value="submit" onclick="show()" /></td>
+                        <td class="row-data">${{file[5]}}</td>
+                        <td class="row-data" style="background-color: white;"><input  class="btn btn-success" type="button" value="$" onclick="show()" /></td>
                       
                       </tr>
                 

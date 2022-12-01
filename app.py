@@ -8,6 +8,7 @@ from flask_session import Session
 import requests
 
 app = Flask(__name__)
+
 app.secret_key = 'BAD_SECRET_KEY_SDA_PROJECT'
 
 #Session
@@ -33,6 +34,7 @@ client = Duffel(access_token = access_token)
 fliapi = "https://airlabs.co/api/v9/cities?name=Singapore&api_key=961e45ec-e4c1-4ce8-99ef-c9411dde97e2"
 data = requests.get(fliapi).json()
 data = data['response']
+
 # Initialize Firestore DB
 cred = credentials.Certificate('key.json')
 default_app = initialize_app(cred)
@@ -102,7 +104,7 @@ def logout():
 def land():
   return render_template('main.html')
 
-
+#getting IATA code from fliapi
 def get_code(name):
   msg = "not name"
   for i in data:
@@ -110,22 +112,23 @@ def get_code(name):
       return i['city_code']
   return msg
 
+#search logic
 @app.route('/flights', methods = ['GET', 'POST'])
 def flights():
   msg = "Enter correct city name"
-  dname = request.form["dest"].capitalize()
-  oname = request.form["ori"].capitalize()
+  dname = request.form["dest"].capitalize() #capitalizing inputs
+  oname = request.form["ori"].capitalize() #capitalizing inputs
   destination = get_code(dname)
   origin = get_code(oname)
   departure_date = request.form["date"]
-
+  #storing city/IATA codes in database
   ddocs = db.collection('City').where("IATA", "==",destination).get()
   if len(ddocs) == 0:
     db.collection('City').add({'IATA': destination, 'cityname':dname })
   odocs = db.collection('City').where("IATA", "==",origin).get()
   if len(odocs) == 0:
     db.collection('City').add({'IATA': origin, 'cityname':oname })
-
+#sending error message if city names are not correctly entered
   if destination=="not name" or origin == "not name":
     return render_template("main.html", msg = msg)
   slices = [
@@ -190,14 +193,17 @@ def payment():
   cdata = {'Address':address, 'City':city, 'Email':email, 'Name':uname, 'Payment id':pid, 'Province': province, 'Zip':zip}
   db.collection('Contact info').add(cdata)
 
+  
   db.collection('History').add({'Username':session['username'], 'Airline':session['airline'], 'Flight No': session['flight'], 'Departure Date': session['depart'], 'Arrival Date': session['arrdate'], 'Price': session['price'], 'Payment id': pid})
+  #poping session after storing in db to reduce overhead
   session.pop('airline', None)
   session.pop('flight', None)
   session.pop('depart', None)
   session.pop('arrdate', None)
   session.pop('price', None)
   return render_template('main.html')
-
+  
+#email logic
 @app.route('/emailing', methods = ['GET', 'POST'])
 def emailing():
   email = request.form["email1"]

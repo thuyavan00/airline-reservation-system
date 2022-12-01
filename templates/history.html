@@ -3,14 +3,14 @@
 <head>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet" >
-    <link rel="stylesheet" href="static\styles\info.css"/>
+    <link rel="stylesheet" href="static\styles\history.css"/>
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <div class="opa container-fluid fbod" style="background-color:red;">
             <nav class="navbar navbar-light" style="background-color:red;">
                 <div class="container-fluid">
-                    <a class="navbar-brand text-light fbod tbod" href="#">ARS</a>
+                    <a class="navbar-brand text-light fbod tbod" href="{{ url_for('land') }}">ARS</a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
@@ -34,15 +34,15 @@
             <br>
             <br>
             <br>
-            <table id="example" class="table content table-fixed table-bordered table-hover table-striped pb-3">
+            <table id="example" class="table content table-fixed table-bordered table-hover pb-3">
                     <thead>
                       <tr>
                         <th scope="col">Airline</th>
                         <th scope="col">Flight No</th>
                         <th scope="col">Departure date</th>
                         <th scope="col">Arrival Date</th>
-                        <th scope="col"></th>
-                        <!--<th scope=""col>but</th>-->
+                        <th scope="col" style="background-color: white;"></th>
+                        <th scope="col" style="background-color: white;"></th>
                     
                         
                       </tr>
@@ -57,7 +57,7 @@
                         <td class="row-data">{{file[2]}}</td>
                         <td class="row-data">{{file[3]}}</td>
                         <td class="row-data">{{file[4]}}</td>
-                        <td class="row-data"><input type="button" value="cancel" onclick="show()" /></td>
+                        <td class="row-data"><input class="btn btn-danger" type="button" value="cancel" onclick="show()" /></td>
                     </tr>
                     
                       {% endfor %}

@@ -46,15 +46,20 @@
     float: left;
   }
 
-  td:last-child {
-    border :none;
-    background-color: #ffffff;
-  }
-  th:last-child {
+
+  th:nth-last-child(2) {
     border :none;
     background-color: #ffffff;
   }
 
+  td:last-child{
+    border :none;
+    background-color: #ffffff;
+  }
+  th:last-child{
+    border :none;
+    background-color: #ffffff;
+  }
 
 html, body{
   overflow-x: hidden;
