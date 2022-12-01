@@ -113,8 +113,8 @@ def get_code(name):
 @app.route('/flights', methods = ['GET', 'POST'])
 def flights():
   msg = "Enter correct city name"
-  dname = request.form["dest"]
-  oname = request.form["ori"]
+  dname = request.form["dest"].capitalize()
+  oname = request.form["ori"].capitalize()
   destination = get_code(dname)
   origin = get_code(oname)
   departure_date = request.form["date"]
