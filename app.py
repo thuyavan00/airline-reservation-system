@@ -18,19 +18,19 @@ Session(app)
 #email
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = ''
-app.config['MAIL_PASSWORD'] = ''
+app.config['MAIL_USERNAME'] = 'sakthipanchabakesan98@gmail.com'
+app.config['MAIL_PASSWORD'] = 'kpehbqykkrutinlm'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 
 #duffel api
-access_token = ''
+access_token = 'duffel_test_kJLcDXpH11bKR78Y5Kxu7MFMck1D1Xlx0cHWwAgxmb8'
 client = Duffel(access_token = access_token)
 
 
 #fliapi
-fliapi = "https://airlabs.co/api/v9/cities?name=Singapore&api_key="
+fliapi = "https://airlabs.co/api/v9/cities?name=Singapore&api_key=961e45ec-e4c1-4ce8-99ef-c9411dde97e2"
 data = requests.get(fliapi).json()
 data = data['response']
 # Initialize Firestore DB
@@ -191,6 +191,11 @@ def payment():
   db.collection('Contact info').add(cdata)
 
   db.collection('History').add({'Username':session['username'], 'Airline':session['airline'], 'Flight No': session['flight'], 'Departure Date': session['depart'], 'Arrival Date': session['arrdate'], 'Price': session['price'], 'Payment id': pid})
+  session.pop('airline', None)
+  session.pop('flight', None)
+  session.pop('depart', None)
+  session.pop('arrdate', None)
+  session.pop('price', None)
   return render_template('main.html')
 
 @app.route('/emailing', methods = ['GET', 'POST'])
@@ -199,11 +204,6 @@ def emailing():
   msg = Message('ARS-Flight Ticket Confirmation', sender = 'ajay.21cs@licet.ac.in', recipients = [email])
   msg.body = "Your Flight Ticket has been confirmed\n"+"airlines:"+session['airline']+"\t"+"flight no:"+session['flight']+"\t"+"departure:"+session['depart']+"\t"+"Arrival:"+session['arrdate']+"\t"+"Price:"+session['price']
   mail.send(msg)
-  session.pop('airline', None)
-  session.pop('flight', None)
-  session.pop('depart', None)
-  session.pop('arrdate', None)
-  session.pop('price', None)
   return render_template('history.html')
 
 
